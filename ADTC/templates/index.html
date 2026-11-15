@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" ng-app="ADTC" style="background-image: linear-gradient(to bottom right, #FFFFFF, #FFFFFF);">
+<head>
+    <meta charset="utf-8">
+    <title>ADTC</title>
+    <link rel="icon" href="/static/ADTC/image/icon.png">
+
+    <!-- jQuery / jQuery UI -->
+    <script src="/static/ADTC/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script src="/static/ADTC/lib/jquery/jquery-ui.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="/static/ADTC/lib/angular/angular_v1.8.2.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/ADTC/bootstrap-4.5.3/css/bootstrap.css">
+    <script src="/static/ADTC/bootstrap-4.5.3/js/bootstrap.min.js"></script>
+
+    <!-- Site styles -->
+    <link rel="stylesheet" href="/static/ADTC/css/main.css">
+    <link rel="stylesheet" href="/static/ADTC/lib/bootstrap-grid-flexbox/css/bootstrap-grid-flexbox.css">
+    <link rel="stylesheet" href="/static/ADTC/lib/element-angular/theme/index.css">
+
+    <!-- Angular modules and plugins -->
+    <script src="/static/ADTC/lib/angular/angular-sanitize.js"></script>
+    <script src="/static/ADTC/lib/angular/angular-route.js"></script>
+    <script src="/static/ADTC/lib/angular/angular-resource.js"></script>
+    <script src="/static/ADTC/lib/angular-pageslide-directive/angular-pageslide-directive.js"></script>
+    <script src="/static/ADTC/lib/angular-paging/paging.js"></script>
+    <script src="/static/ADTC/lib/ui-bootstrap/ui-bootstrap-tpls-2.4.0.js"></script>
+    <script src="/static/ADTC/lib/bootstrap-slider/bootstrap-slider.js"></script>
+    <script src="/static/ADTC/lib/bootstrap-slider/angular-bootstrap-slider.js"></script>
+    <script src="/static/ADTC/lib/angular-file-upload.js"></script>
+
+    <!-- DataTables -->
+    <script src="/static/ADTC/lib/DataTable/jquery-3.5.1.js"></script>
+    <script src="/static/ADTC/lib/DataTable/jquery.dataTables.min.js"></script>
+    <script src="/static/ADTC/lib/DataTable/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="/static/ADTC/lib/DataTable/dataTables.bootstrap4.min.css">
+
+    <!-- Plotly -->
+    <script src="/static/ADTC/lib/plotly-latest.min.js"></script>
+
+    <!-- Modal -->
+    <script src="/static/ADTC/lib/bootstrap/4.0.0-alpha.6/bootstrap.min.js"></script>
+    <script src="/static/ADTC/lib/bootstrap/4.0.0-alpha.6/tether.min.js"></script>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <!-- Autocomplete -->
+    <script src="/static/ADTC/lib/autocomplete/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/static/ADTC/lib/autocomplete/autocomplete.css">
+
+    <!-- App -->
+    <script src="/static/ADTC/js/app.js"></script>
+    <script src="/static/ADTC/js/data/lncrna.genes.js"></script>
+    <script src="/static/ADTC/js/data/as.genes.js"></script>
+    <script src="/static/ADTC/js/data/apa.genes.js"></script>
+    <script src="/static/ADTC/js/data/editing.genes.js"></script>
+    <script src="/static/ADTC/js/home.controller.js"></script>
+    <script src="/static/ADTC/js/lncrna.controller.js"></script>
+    <script src="/static/ADTC/js/as.controller.js"></script>
+    <script src="/static/ADTC/js/apa.controller.js"></script>
+    <script src="/static/ADTC/js/editing.controller.js"></script>
+    <script src="/static/ADTC/js/download.controller.js"></script>
+    <script src="/static/ADTC/js/document.controller.js"></script>
+    <script src="/static/ADTC/js/contact.controller.js"></script>
+</head>
+<body style="background-position: center top; background-repeat: no-repeat; padding: 0; margin: auto;">
+    <div ng-include="'/static/ADTC/partials/navigation.html'" ng-controller="HomeController"></div>
+
+    <div ng-view></div>
+
+    <div ng-include="'/static/ADTC/partials/footer.html'"></div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<div class="containerFiex">
+    <div class="el-col">
+        <br>
+        <br>
+        <div class="el-col-20 el-col-offset-2" style="padding-left: 10px; padding-right: 10px;">
+            <div style="border: 1px solid rgb(220, 223, 230); padding: 15px; font-size: 14px;">
+                <!-- Introduction -->
+                <h2>Welcome to <span style="color: #c355f6">RNA Editing</span> Section</h2> <br>
+                <p>The <strong>RNA Editing module</strong> includes two sub-sections:</p>
+                <p>
+                    <strong>Differential Analysis:</strong> Allows users to search by gene name to view  ancestry-associated differences in A-to-I RNA editing among EUR, EAS and AFR across 21 cancer types.
+                </p>
+                <p>
+                    <strong>Survival Analysis:</strong> Allows users to search by gene name to view ancestry-associated survival differences influenced by RNA editing.
+                </p> <br>
+                <p style="color: #c355f6;">📢 More details about data sources in ADTC can be found in
+                    <a href="#!/document" target="_self">Doucument</a></p><br>
+
+                <!-- Tabs -->
+                <ul class="nav nav- nav-pills nav-tabs" id="myTab" role="tablist">
+                    <li ng-click="Show_res('One')" class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="targets"
+                           aria-expanded="true"><strong>Differential Analysis</strong></a>
+                    </li>
+                    <li ng-click="Show_res('Two')" class="nav-item">
+                        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="Ligase"
+                           aria-expanded="true"><strong>Survival Analysis</strong></a>
+                    </li>
+                </ul>
+                <br>
+
+                <!-- Tab 1: Differential Analysis -->
+                <div ng-show="One">
+                    <div class="el-picker-panel panel panel-warning">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <strong style="color: #7a7a7a">
+                                    Differential Analysis
+                                </strong>
+                            </h4>
+                        </div>
+                        <div class="el-picker-panel__body panel-body">
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <div class="col-sm-4 control-label col-sm-offset-0 form-inline">
+                                    Compare:
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="compare" class="form-control el-input__inner">
+                                        <option value="eur_eas">European vs. Asian</option>
+                                        <option value="eur_afr">European vs. African</option>
+                                        <option value="afr_eas">African vs. Asian</option>
+                                        <option value="all">All</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <div class="col-sm-4 control-label col-sm-offset-0 form-inline">
+                                    Cancer types:
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control el-input__inner" id="cancer_types" name="CancerType">
+                                        <option>(BRCA) Breast invasive carcinoma</option>
+                                        <option>(BLCA) Bladder Urothelial Carcinoma</option>
+                                        <option>(CESC) Cervical squamous cell carcinoma and endocervical adenocarcinoma</option>
+                                        <option>(COAD) Colon adenocarcinoma</option>
+                                        <option>(CRC) Colorectal Cancer</option>
+                                        <option>(DLBC) Lymphoid Neoplasm Diffuse Large B-cell Lymphoma</option>
+                                        <option>(ESCA) Esophageal Carcinoma</option>
+                                        <option>(HNSC) Head and Neck squamous cell carcinoma</option>
+                                        <option>(KIRC) Kidney renal clear cell carcinoma</option>
+                                        <option>(KIRP) Kidney renal papillary cell carcinoma</option>
+                                        <option>(LGG) Brain Lower Grade Glioma</option>
+                                        <option>(LIHC) Liver hepatocellular carcinoma</option>
+                                        <option>(LUAD) Lung adenocarcinoma</option>
+                                        <option>(LUSC) Lung squamous cell carcinoma</option>
+                                        <option>(NSCLC) Non-small Cell Lung Cancer</option>
+                                        <option>(OV) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(PAAD) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(PRAD) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(RCC) Renal Cell Carcinoma</option>
+                                        <option>(SARC) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(STAD) Stomach Adenocarcinoma</option>
+                                        <option>(THCA) Thyroid carcinoma</option>
+                                        <option>(THYM) Thymoma</option>
+                                        <option>(UCEC) Uterine Corpus Endometrial Carcinoma</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <div class="col-sm-4 control-label col-sm-offset-0 form-inline">
+                                    Gene name:
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="el-input">
+                                        <input type="text" class="form-control el-input__inner" id="gene" value="AL391244.2"
+                                               placeholder="e.g. AL391244.2" name="gene">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <button class="el-button el-button--success" id="submit" type="submit"
+                                        ng-click="search()">
+                                    <strong>Submit</strong>
+                                </button>
+                                <button class="el-button el-button--success" onClick="history.go(0);">Refresh</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <hr>
+                            <div class="el-picker-panel__body panel-body">
+                                <p>Results</p>
+                                <div ng-show="loading" class="text-center">
+                                    <img src="/static/ADTC/image/loading.gif" alt="Loading"
+                                         style="height: 150px;width: 150px">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" ng-show="table_show">
+                                        <table id="tablesort" class="table el-table table-border table-striped"
+                                               style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Cancer types</th>
+                                                    <th class="text-center">Comparision</th>
+                                                    <th class="text-center">Event ID</th>
+                                                    <th class="text-center">Gene symbol</th>
+                                                    <th class="text-center">Repeat</th>
+                                                    <th class="text-center">Type</th>
+                                                    <th class="text-center">FDR</th>
+                                                    <th class="text-center">mean1</th>
+                                                    <th class="text-center">mean0</th>
+                                                    <th class="text-center">Differences</th>
+                                                    <th class="text-center">Alteration</th>
+                                                    <th class="text-center">Display</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="editing in Editing_result_list">
+                                                    <td class="text-center">{$ editing.cancertype $}</td>
+                                                    <td class="text-center">
+                                                        <span ng-show="editing.type=='eur_afr'">European vs African </span>
+                                                        <span ng-show="editing.type=='eur_eas'">European vs Asian</span>
+                                                        <span ng-show="editing.type=='afr_eas'">African vs Asian</span>
+                                                    </td>
+                                                    <td class="text-center">{$ editing.feature_sig $}</td>
+                                                    <td class="text-center">{$ editing.Gene_wgEncodeGencodeBasicV34 $}</td>
+                                                    <td class="text-center">{$ editing.repeat_ $}</td>
+                                                    <td class="text-center">{$ editing.Type $}</td>
+                                                    <td class="text-center">{$ editing.fdr_sig $}</td>
+                                                    <td class="text-center">{$ editing.mean1_sig_w $}</td>
+                                                    <td class="text-center">{$ editing.mean0_sig_w $}</td>
+                                                    <td class="text-center">{$ editing.diff.toPrecision(3) $}</td>
+                                                    <td class="text-center">
+                                                        <button ng-show="editing.alteration=='Over-editing'" type="button"
+                                                                class="el-button el-button--danger el-button--small">
+                                                            {$ editing.alteration $}
+                                                        </button>
+                                                        <button ng-show="editing.alteration=='Under-editing'" type="button"
+                                                                class="el-button el-button--success el-button--small">
+                                                            {$ editing.alteration $}
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button"
+                                                                class="el-button el-button--primary el-button--small"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal"
+                                                                ng-click="plot_box(editing)">
+                                                            Display
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Survival Analysis -->
+                <div ng-show="Two">
+                    <div class="el-picker-panel panel panel-warning">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <strong style="color: #7a7a7a">
+                                    Survival Analysis
+                                </strong>
+                            </h4>
+                        </div>
+                        <div class="el-picker-panel__body panel-body">
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <div class="col-sm-4 control-label col-sm-offset-0 form-inline">
+                                    Cancer types:
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control el-input__inner" id="cancertypes" name="CancerType">
+                                        <option>(BLCA) Bladder Urothelial Carcinoma</option>
+                                        <option selected>(BRCA) Breast invasive carcinoma</option>
+                                        <option>(CESC) Cervical squamous cell carcinoma and endocervical adenocarcinoma</option>
+                                        <option>(COAD) Colon adenocarcinoma</option>
+                                        <option>(CRC) Colorectal Cancer</option>
+                                        <option>(DLBC) Lymphoid Neoplasm Diffuse Large B-cell Lymphoma</option>
+                                        <option>(ESCA) Esophageal Carcinoma</option>
+                                        <option>(HNSC) Head and Neck squamous cell carcinoma</option>
+                                        <option>(KIRC) Kidney renal clear cell carcinoma</option>
+                                        <option>(KIRP) Kidney renal papillary cell carcinoma</option>
+                                        <option>(LGG) Brain Lower Grade Glioma</option>
+                                        <option>(LIHC) Liver hepatocellular carcinoma</option>
+                                        <option>(LUAD) Lung adenocarcinoma</option>
+                                        <option>(LUSC) Lung squamous cell carcinoma</option>
+                                        <option>(NSCLC) Non-small Cell Lung Cancer</option>
+                                        <option>(OV) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(PAAD) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(PRAD) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(RCC) Renal Cell Carcinoma</option>
+                                        <option>(SARC) Ovarian serous cystadenocarcinoma</option>
+                                        <option>(STAD) Stomach Adenocarcinoma</option>
+                                        <option>(THCA) Thyroid carcinoma</option>
+                                        <option>(THYM) Thymoma</option>
+                                        <option>(UCEC) Uterine Corpus Endometrial Carcinoma</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <div class="col-sm-4 control-label col-sm-offset-0 form-inline">
+                                    Gene name:
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="el-input">
+                                        <input type="text" class="form-control el-input__inner" id="gene_name2" value="MDM2"
+                                               placeholder="e.g. MDM2" name="gene_name2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex flex-row justify-content-center">
+                                <button class="el-button el-button--success" id="submit" type="submit"
+                                        ng-click="search2()">
+                                    <strong>Submit</strong>
+                                </button>
+                                <button class="el-button el-button--success" onClick="history.go(0);">Refresh</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <hr>
+                            <div class="el-picker-panel__body panel-body">
+                                <p>Results</p>
+                                <div ng-show="loading2" class="text-center">
+                                    <img src="/static/ADTC/image/loading.gif" alt="Loading"
+                                         style="height: 150px;width: 150px">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" ng-show="table_show2">
+                                        <table id="tablesort2" class="table el-table table-border table-striped"
+                                               style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Cancer types</th>
+                                                    <th class="text-center">Ancestry</th>
+                                                    <th class="text-center">Gene name</th>
+                                                    <th class="text-center">Editing site</th>
+                                                    <th class="text-center">Repeat</th>
+                                                    <th class="text-center">Type</th>
+                                                    <th class="text-center">HR</th>
+                                                    <th class="text-center">FDR</th>
+                                                    <th class="text-center">Up95</th>
+                                                    <th class="text-center">Low95</th>
+                                                    <th class="text-center">Display</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="survive in Survival_result_list">
+                                                    <td class="text-center">{$ survive.cancertypes $}</td>
+                                                    <td class="text-center">
+                                                        <span ng-show="survive.ancestry=='afr'">African </span>
+                                                        <span ng-show="survive.ancestry=='eur'">European</span>
+                                                        <span ng-show="survive.ancestry=='eas'">East Asian</span>
+                                                    </td>
+                                                    <td class="text-center">{$ survive.Gene_wgEncodeGencodeBasicV34 $}</td>
+                                                    <td class="text-center">{$ survive.feature $}</td>
+                                                    <td class="text-center">{$ survive.repeat $}</td>
+                                                    <td class="text-center">{$ survive.type $}</td>
+                                                    <td class="text-center">{$ survive.HR $}</td>
+                                                    <td class="text-center">{$ survive.FDR.toPrecision(3) $}</td>
+                                                    <td class="text-center">{$ survive.Up95 $}</td>
+                                                    <td class="text-center">{$ survive.Low95 $}</td>
+                                                    <td class="text-center">
+                                                        <button type="button"
+                                                                class="el-button el-button--primary el-button--small"
+                                                                data-toggle="modal"
+                                                                data-target="#exampleModal2"
+                                                                ng-click="survival_plot(survive)">
+                                                            Display
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: differential analysis box plot -->
+<div class="modal fade bs-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-show="load" class="text-center" style="width: 500px; height: 600px;margin-top: 6%">
+                    <img src="/static/ADTC/image/loading.gif" alt="Loading" style="height: 300px;width: 300px">
+                </div>
+                <div id="ancestry" style="width: 500px; height: 600px"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: survival plot -->
+<div class="modal fade bs-example-modal-lg" id="exampleModal2" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-show="load2" class="text-center" style="width: 500px; height: 600px;margin-top: 15%">
+                    <img src="/static/ADTC/image/loading.gif" alt="Loading" style="height: 300px;width: 300px">
+                </div>
+                <div class="row-flex" ng-hide="load2">
+                    <div class="col-flex-lg-offset-2">
+                        <img src="{$ reuslt $}/survival.jpeg" style="height: 550px;width: 550px">
+                    </div>
+                    <div class="col-flex-lg-offset-10">
+                        <h3>
+                            <a download="survival.pdf" class="button btn-lg btn-success"
+                               style="text-decoration: none;background-color: #4CAF50;color: #f2f2f2"
+                               href="{$ reuslt $}/survival.pdf">
+                                PDF Downlaod
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
